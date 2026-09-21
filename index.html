@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INCEPTA — Institute for Economic, Climate, and Policy Technology Analysis</title>
+<meta name="description" content="Lembaga riset dan konsultasi independen di bidang kebijakan ekonomi, iklim, dan teknologi cerdas. Evidence-based policymaking untuk pembangunan berkelanjutan.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b2545'/%3E%3Ctext x='50' y='69' font-family='Georgia,serif' font-size='52' font-weight='700' text-anchor='middle' fill='%2317a394'%3EIn%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#081a33;
+    --navy-800:#0b2545;
+    --navy-700:#123b63;
+    --navy-600:#1b4d7e;
+    --teal-500:#12897b;
+    --teal-400:#17a394;
+    --teal-300:#4cc2b3;
+    --amber:#d9a441;
+    --ink:#0f1e30;
+    --slate-700:#33445a;
+    --slate-500:#5c6b80;
+    --slate-300:#c3ccd8;
+    --paper:#f7f9fb;
+    --paper-2:#eef2f6;
+    --white:#ffffff;
+    --line:#e2e8f0;
+    --radius:16px;
+    --shadow-sm:0 1px 2px rgba(8,26,51,.06),0 4px 14px rgba(8,26,51,.05);
+    --shadow-md:0 10px 30px rgba(8,26,51,.10);
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces',Georgia,'Times New Roman',serif;line-height:1.15;color:var(--navy-800);font-weight:600}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-family:'Inter';
+    font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--teal-500);
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--teal-400);border-radius:2px}
+  .section{padding:96px 0}
+  .section-head{max-width:760px;margin-bottom:52px}
+  .section-head h2{font-size:clamp(1.9rem,3.6vw,2.9rem);margin:14px 0 14px}
+  .section-head p{color:var(--slate-500);font-size:1.06rem}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.95rem;
+    padding:13px 24px;border-radius:999px;cursor:pointer;border:1px solid transparent;
+    transition:.2s ease;
+  }
+  .btn-primary{background:var(--teal-500);color:#fff}
+  .btn-primary:hover{background:var(--teal-400);transform:translateY(-1px);box-shadow:0 8px 22px rgba(18,137,123,.35)}
+  .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
+  .btn-dark{background:var(--navy-800);color:#fff}
+  .btn-dark:hover{background:var(--navy-700);transform:translateY(-1px)}
+
+  /* NAV */
+  header.nav{
+    position:sticky;top:0;z-index:100;background:rgba(247,249,251,.82);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'Fraunces';font-weight:700;
+    font-size:1.35rem;color:var(--navy-800);letter-spacing:.01em}
+  .brand .mark{
+    width:38px;height:38px;border-radius:11px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--navy-800),var(--teal-500));
+    display:grid;place-items:center;color:#fff;font-family:'Fraunces';font-weight:700;font-size:1.15rem;
+    box-shadow:0 6px 16px rgba(18,137,123,.35);
+  }
+  .brand small{display:block;font-family:'Inter';font-weight:500;font-size:.62rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--slate-500);margin-top:-2px}
+  nav.links{display:flex;align-items:center;gap:28px}
+  nav.links a{font-size:.92rem;font-weight:500;color:var(--slate-700);transition:color .15s}
+  nav.links a:hover{color:var(--teal-500)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .lang{
+    display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#fff;
+    font-size:.78rem;font-weight:600;
+  }
+  .lang button{border:0;background:transparent;padding:7px 12px;cursor:pointer;color:var(--slate-500)}
+  .lang button.active{background:var(--navy-800);color:#fff}
+  .burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--navy-800);border-radius:2px;transition:.25s}
+
+  /* HERO */
+  .hero{
+    position:relative;color:#fff;overflow:hidden;
+    background:radial-gradient(1200px 600px at 80% -10%,rgba(23,163,148,.35),transparent 60%),
+               linear-gradient(160deg,var(--navy-900) 0%,var(--navy-800) 45%,var(--navy-700) 100%);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(900px 500px at 75% 0%,#000,transparent 75%);
+  }
+  .hero-inner{position:relative;z-index:2;padding:104px 0 110px;max-width:840px}
+  .hero .eyebrow{color:var(--teal-300)}
+  .hero .eyebrow::before{background:var(--teal-300)}
+  .hero h1{color:#fff;font-size:clamp(2.4rem,5.4vw,4.1rem);font-weight:600;margin:22px 0 20px;letter-spacing:-.01em}
+  .hero h1 .accent{color:var(--teal-300)}
+  .tagline{font-family:'Fraunces';font-style:italic;font-size:clamp(1.05rem,2.2vw,1.4rem);
+    color:#dbe7ee;font-weight:400;margin-bottom:22px}
+  .hero p.lead{font-size:1.1rem;color:#c4d3de;max-width:640px;margin-bottom:34px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-meta{display:flex;gap:40px;flex-wrap:wrap;margin-top:56px;padding-top:30px;
+    border-top:1px solid rgba(255,255,255,.14)}
+  .hero-meta .item .n{font-family:'Fraunces';font-size:1.9rem;font-weight:600;color:#fff}
+  .hero-meta .item .l{font-size:.82rem;color:#9fb3c2;letter-spacing:.02em}
+
+  /* ABOUT / IDENTITY */
+  .grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+  .etym-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 32px;
+    box-shadow:var(--shadow-sm);
+  }
+  .etym-card .word{font-family:'Fraunces';font-style:italic;font-size:1.5rem;color:var(--teal-500);margin-bottom:6px}
+  .etym-card p{color:var(--slate-700)}
+  .fact-list{display:grid;gap:18px;margin-top:26px}
+  .fact{display:flex;gap:14px;align-items:flex-start}
+  .fact .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:var(--paper-2);
+    display:grid;place-items:center;color:var(--teal-500)}
+  .fact h4{font-family:'Inter';font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--slate-500);font-weight:600;margin-bottom:2px}
+  .fact p{color:var(--ink);font-weight:500}
+
+  /* VISION MISSION */
+  .vm{background:var(--navy-800);color:#fff}
+  .vm .eyebrow{color:var(--teal-300)}
+  .vm .eyebrow::before{background:var(--teal-300)}
+  .vm h2{color:#fff}
+  .vision-box{
+    background:linear-gradient(135deg,rgba(23,163,148,.14),rgba(255,255,255,.03));
+    border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:34px 36px;margin-bottom:44px;
+  }
+  .vision-box .lbl{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-300);margin-bottom:12px}
+  .vision-box p{font-family:'Fraunces';font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.4;color:#eaf2f5;font-weight:400}
+  .mission-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .mission-card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;padding:24px 24px 26px;transition:.25s}
+  .mission-card:hover{background:rgba(255,255,255,.08);transform:translateY(-3px)}
+  .mission-card .num{font-family:'Fraunces';font-size:1.5rem;color:var(--teal-300);font-weight:600;margin-bottom:10px}
+  .mission-card p{color:#c9d8e2;font-size:.96rem}
+
+  /* RESEARCH CLUSTERS */
+  .cluster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
+  .cluster{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden;
+    box-shadow:var(--shadow-sm);transition:.25s;display:flex;flex-direction:column;
+  }
+  .cluster:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+  .cluster .top{padding:28px 28px 22px;color:#fff;position:relative}
+  .cluster.c1 .top{background:linear-gradient(135deg,var(--navy-800),var(--navy-600))}
+  .cluster.c2 .top{background:linear-gradient(135deg,#0f6b4f,var(--teal-500))}
+  .cluster.c3 .top{background:linear-gradient(135deg,#243b73,#3a5bb0)}
+  .cluster .tag{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .cluster .top h3{color:#fff;font-size:1.32rem;margin-top:8px}
+  .cluster .ico{position:absolute;top:24px;right:24px;opacity:.9}
+  .cluster ul{list-style:none;padding:24px 28px 30px;display:grid;gap:12px}
+  .cluster ul li{position:relative;padding-left:24px;color:var(--slate-700);font-size:.95rem}
+  .cluster ul li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:3px;background:var(--teal-400)}
+
+  /* ORG STRUCTURE */
+  .org{background:var(--paper-2)}
+  .org-tier{margin-bottom:34px}
+  .tier-label{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .tier-label span.pill{background:var(--navy-800);color:#fff;font-size:.72rem;font-weight:600;
+    padding:5px 12px;border-radius:999px;letter-spacing:.06em}
+  .tier-label h3{font-size:1.15rem}
+  .exec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .exec-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px;box-shadow:var(--shadow-sm)}
+  .exec-card .role{font-family:'Fraunces';font-size:1.05rem;color:var(--navy-800);font-weight:600;margin-bottom:6px}
+  .exec-card p{font-size:.9rem;color:var(--slate-500)}
+  .advisor-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:22px 26px;box-shadow:var(--shadow-sm)}
+  .advisor-card p{color:var(--slate-700)}
+  .div-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+  .div-table th{background:var(--navy-800);color:#fff;text-align:left;font-family:'Inter';font-weight:600;
+    font-size:.82rem;letter-spacing:.04em;padding:14px 20px}
+  .div-table td{padding:16px 20px;border-top:1px solid var(--line);font-size:.92rem;color:var(--slate-700);vertical-align:top}
+  .div-table td:first-child{font-weight:600;color:var(--navy-800);font-family:'Inter'}
+  .div-table tr:hover td{background:var(--paper)}
+
+  /* SERVICES */
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+  .svc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 28px;
+    box-shadow:var(--shadow-sm);transition:.25s;position:relative;overflow:hidden}
+  .svc::before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;
+    background:linear-gradient(90deg,var(--teal-500),var(--navy-600))}
+  .svc:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .svc .ic{width:44px;height:44px;border-radius:12px;background:var(--paper-2);display:grid;place-items:center;
+    color:var(--teal-500);margin-bottom:16px}
+  .svc h3{font-size:1.12rem;margin-bottom:8px}
+  .svc p{font-size:.93rem;color:var(--slate-500);margin-bottom:14px}
+  .svc .aud{font-size:.78rem;color:var(--teal-600,var(--teal-500));font-weight:600;
+    background:var(--paper-2);display:inline-block;padding:5px 12px;border-radius:999px;color:var(--navy-700)}
+
+  /* PARTNERS */
+  .partners{background:var(--navy-900);color:#fff}
+  .partners .eyebrow{color:var(--teal-300)}
+  .partners .eyebrow::before{background:var(--teal-300)}
+  .partners h2{color:#fff}
+  .partners .section-head p{color:#a9bccb}
+  .partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+  .partner-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:26px}
+  .partner-card h3{color:#fff;font-size:1.08rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .partner-card h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--teal-300)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:.8rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+    color:#d7e4ec;padding:6px 12px;border-radius:999px}
+
+  /* FUNDING */
+  .fund-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:36px}
+  .fund-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow-sm)}
+  .fund-card .n{font-family:'Fraunces';color:var(--teal-500);font-size:1.3rem;font-weight:600}
+  .fund-card h4{font-family:'Inter';font-size:1rem;margin:6px 0 6px;color:var(--navy-800)}
+  .fund-card p{font-size:.88rem;color:var(--slate-500)}
+  .sustain{background:linear-gradient(135deg,var(--navy-800),var(--navy-700));color:#fff;
+    border-radius:var(--radius);padding:32px 36px}
+  .sustain h3{color:#fff;margin-bottom:16px}
+  .sustain ul{list-style:none;display:grid;gap:12px}
+  .sustain li{padding-left:26px;position:relative;color:#cbdae5;font-size:.96rem}
+  .sustain li::before{content:"✓";position:absolute;left:0;color:var(--teal-300);font-weight:700}
+
+  /* ROADMAP */
+  .roadmap{background:var(--paper-2)}
+  .timeline{position:relative;margin-top:20px}
+  .timeline::before{content:"";position:absolute;left:26px;top:8px;bottom:8px;width:2px;
+    background:linear-gradient(var(--teal-400),var(--navy-600))}
+  .tl-item{position:relative;padding-left:72px;margin-bottom:26px}
+  .tl-item .yr{position:absolute;left:0;top:0;width:54px;height:54px;border-radius:50%;
+    background:#fff;border:2px solid var(--teal-400);display:grid;place-items:center;
+    font-family:'Fraunces';font-weight:600;color:var(--navy-800);font-size:.92rem;box-shadow:var(--shadow-sm);z-index:2}
+  .tl-item .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 24px;box-shadow:var(--shadow-sm)}
+  .tl-item .card h4{font-family:'Inter';font-size:1rem;color:var(--navy-800);margin-bottom:6px}
+  .tl-item .card p{font-size:.92rem;color:var(--slate-500)}
+  .tl-item .card .target{display:inline-block;margin-top:10px;font-size:.8rem;font-weight:600;color:var(--teal-500);
+    background:var(--paper-2);padding:5px 12px;border-radius:999px}
+
+  /* KPI */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow-sm);text-align:left}
+  .kpi .ic{color:var(--teal-500);margin-bottom:12px}
+  .kpi h4{font-size:1rem;font-family:'Inter';color:var(--navy-800);margin-bottom:6px}
+  .kpi p{font-size:.88rem;color:var(--slate-500)}
+
+  /* PUBLICATIONS */
+  .pub{background:var(--paper-2)}
+  .pub-filter{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+  .pub-filter button{border:1px solid var(--line);background:#fff;color:var(--slate-700);font-weight:600;
+    font-size:.86rem;padding:9px 18px;border-radius:999px;cursor:pointer;transition:.2s;font-family:'Inter'}
+  .pub-filter button:hover{border-color:var(--teal-400);color:var(--teal-500)}
+  .pub-filter button.active{background:var(--navy-800);color:#fff;border-color:var(--navy-800)}
+  .pub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+  .pub-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow-sm);transition:.25s;display:flex;flex-direction:column}
+  .pub-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .pub-card .band{height:8px}
+  .pub-card.t-brief .band{background:linear-gradient(90deg,var(--teal-500),var(--teal-300))}
+  .pub-card.t-paper .band{background:linear-gradient(90deg,var(--navy-700),var(--navy-600))}
+  .pub-card.t-data .band{background:linear-gradient(90deg,#243b73,#3a5bb0)}
+  .pub-card .body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+  .pub-card .meta{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .pub-type{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:6px}
+  .t-brief .pub-type{background:rgba(18,137,123,.12);color:var(--teal-500)}
+  .t-paper .pub-type{background:rgba(18,59,99,.1);color:var(--navy-700)}
+  .t-data .pub-type{background:rgba(58,91,176,.12);color:#3a5bb0}
+  .pub-card .date{font-size:.8rem;color:var(--slate-500)}
+  .pub-card h3{font-size:1.12rem;margin-bottom:10px;line-height:1.3}
+  .pub-card p{font-size:.9rem;color:var(--slate-500);margin-bottom:16px;flex:1}
+  .pub-card .read{font-size:.85rem;font-weight:600;color:var(--teal-500);display:inline-flex;align-items:center;gap:6px}
+  .pub-note{margin-top:26px;font-size:.85rem;color:var(--slate-500);font-style:italic}
+
+  /* CONTACT FORM */
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+  .contact-info h3{font-size:1.5rem;margin-bottom:14px}
+  .contact-info p{color:var(--slate-500);margin-bottom:26px}
+  .contact-line{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+  .contact-line .ic{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:var(--paper-2);
+    display:grid;place-items:center;color:var(--teal-500)}
+  .contact-line h4{font-family:'Inter';font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--slate-500);font-weight:600;margin-bottom:2px}
+  .contact-line p{margin:0;color:var(--ink);font-weight:500}
+  form.contact-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 32px;box-shadow:var(--shadow-sm)}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{margin-bottom:16px;display:flex;flex-direction:column}
+  .field label{font-size:.82rem;font-weight:600;color:var(--slate-700);margin-bottom:6px}
+  .field input,.field select,.field textarea{
+    font-family:'Inter';font-size:.94rem;padding:11px 14px;border:1px solid var(--line);border-radius:10px;
+    background:var(--paper);color:var(--ink);transition:.15s;width:100%}
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--teal-400);background:#fff;box-shadow:0 0 0 3px rgba(23,163,148,.15)}
+  .field textarea{resize:vertical;min-height:120px}
+  .form-note{font-size:.82rem;color:var(--slate-500);margin-top:12px}
+  .form-status{margin-top:14px;font-size:.9rem;font-weight:600;display:none}
+  .form-status.ok{display:block;color:var(--teal-500)}
+  .form-status.err{display:block;color:#c0392b}
+
+  /* CONTACT / FOOTER */
+  .cta-band{background:linear-gradient(135deg,var(--teal-500),var(--navy-700));color:#fff;text-align:center;
+    border-radius:24px;padding:56px 32px;margin:0 auto}
+  .cta-band h2{color:#fff;font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:14px}
+  .cta-band p{color:#e3f0ee;max-width:560px;margin:0 auto 26px}
+  footer{background:var(--navy-900);color:#a9bccb;padding:64px 0 32px;margin-top:0}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
+  footer .brand{color:#fff}
+  footer .brand small{color:#7f95a6}
+  footer p.desc{color:#8ba0b1;font-size:.92rem;margin-top:16px;max-width:300px}
+  .foot-col h5{color:#fff;font-family:'Inter';font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+  .foot-col a{display:block;color:#9fb3c2;font-size:.92rem;margin-bottom:10px;transition:color .15s}
+  .foot-col a:hover{color:var(--teal-300)}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;font-size:.85rem;color:#7f95a6}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .grid-2{grid-template-columns:1fr;gap:34px}
+    .contact-grid{grid-template-columns:1fr;gap:32px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    nav.links,.nav-cta .lang{display:none}
+    .burger{display:flex}
+    .nav-inner nav.links.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;
+      background:var(--white);padding:18px 24px;border-bottom:1px solid var(--line);gap:6px;box-shadow:var(--shadow-md)}
+    .nav-inner nav.links.open a{padding:10px 0;border-bottom:1px solid var(--line)}
+    .div-table{display:block;overflow-x:auto;white-space:nowrap}
+  }
+  @media(max-width:560px){
+    .section{padding:64px 0}
+    .foot-grid{grid-template-columns:1fr}
+    .hero-meta{gap:26px}
+    .frow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
+          <rect x="3" y="14" width="3.4" height="6" rx="1.4" fill="#ffffff"/>
+          <rect x="8.6" y="10" width="3.4" height="10" rx="1.4" fill="#ffffff"/>
+          <rect x="14.2" y="6" width="3.4" height="14" rx="1.4" fill="#bff0e6"/>
+          <path d="M19.5 3.2c1.9.4 2.6 2 2.1 3.9-1.9-.4-2.6-2-2.1-3.9Z" fill="#4cc2b3"/>
+        </svg>
+      </span>
+      <span>INCEPTA<small data-i18n="brand_sub">Economic · Climate · Policy Technology</small></span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#tentang" data-i18n="nav_about">Tentang</a>
+      <a href="#visi" data-i18n="nav_vision">Visi &amp; Misi</a>
+      <a href="#riset" data-i18n="nav_research">Riset</a>
+      <a href="#organisasi" data-i18n="nav_org">Organisasi</a>
+      <a href="#layanan" data-i18n="nav_services">Layanan</a>
+      <a href="#publikasi" data-i18n="nav_pub">Publikasi</a>
+      <a href="#roadmap" data-i18n="nav_roadmap">Roadmap</a>
+      <a href="#hubungi" data-i18n="nav_contact">Kontak</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="id" class="active">ID</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <a href="#kontak" class="btn btn-dark" data-i18n="nav_cta">Kolaborasi</a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<span id="top"></span>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow" data-i18n="hero_eyebrow">Independent Policy Research Institute</span>
+    <h1 data-i18n="hero_title">Menjembatani riset ilmiah dan <span class="accent">kebijakan publik</span> berbasis bukti.</h1>
+    <p class="tagline">"Integrating Economics, Intelligence, and Sustainability for Better Policy."</p>
+    <p class="lead" data-i18n="hero_lead">INCEPTA — Institute for Economic, Climate, and Policy Technology Analysis — adalah lembaga riset dan konsultasi independen di bidang kebijakan ekonomi, iklim, dan teknologi cerdas untuk pembangunan berkelanjutan di Indonesia dan Asia Tenggara.</p>
+    <div class="hero-actions">
+      <a href="#riset" class="btn btn-primary" data-i18n="hero_cta1">Jelajahi Klaster Riset →</a>
+      <a href="#tentang" class="btn btn-ghost" data-i18n="hero_cta2">Tentang INCEPTA</a>
+    </div>
+    <div class="hero-meta">
+      <div class="item"><div class="n">3</div><div class="l" data-i18n="stat1">Klaster riset interdisipliner</div></div>
+      <div class="item"><div class="n">5</div><div class="l" data-i18n="stat2">Divisi teknis</div></div>
+      <div class="item"><div class="n">2025–29</div><div class="l" data-i18n="stat3">Roadmap strategis</div></div>
+      <div class="item"><div class="n">ID · EN</div><div class="l" data-i18n="stat4">Publikasi bilingual</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / IDENTITY -->
+<section class="section" id="tentang">
+  <div class="wrap">
+    <div class="grid-2">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="about_eyebrow">Identitas Lembaga</span>
+        <h2 style="font-size:clamp(1.9rem,3.6vw,2.9rem);margin:14px 0 18px" data-i18n="about_title">Awal dari inovasi dan pemikiran kebijakan baru</h2>
+        <div class="etym-card">
+          <div class="word">incipere</div>
+          <p data-i18n="etym">Secara etimologis, <strong>Incepta</strong> berasal dari bahasa Latin <em>“incipere”</em> — memulai sesuatu yang besar — yang secara simbolik mencerminkan awal dari inovasi dan pemikiran kebijakan baru.</p>
+        </div>
+        <div class="fact-list">
+          <div class="fact">
+            <span class="ic">🏛️</span>
+            <div><h4 data-i18n="f1_l">Bentuk Kelembagaan</h4><p data-i18n="f1_v">Tahap awal sebagai Independent Research Initiative / Think Tank Foundation, berkembang menjadi lembaga riset resmi (yayasan nirlaba) terdaftar di Kemenkumham.</p></div>
+          </div>
+          <div class="fact">
+            <span class="ic">📍</span>
+            <div><h4 data-i18n="f2_l">Kedudukan</h4><p data-i18n="f2_v">Berbasis di Jakarta/Medan dengan jejaring riset di universitas dan lembaga daerah: Sumatera Utara, Bandung, dan Yogyakarta.</p></div>
+          </div>
+          <div class="fact">
+            <span class="ic">🎯</span>
+            <div><h4 data-i18n="f3_l">Positioning</h4><p data-i18n="f3_v">Jembatan antara riset ilmiah dan kebijakan publik — menggabungkan analisis ekonomi kuantitatif, pemodelan AI, dan kebijakan berkelanjutan.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="etym-card" style="background:var(--navy-800);color:#fff;border:none">
+          <span class="eyebrow" style="color:var(--teal-300)" data-i18n="dna_eyebrow">Kesimpulan Kelembagaan</span>
+          <h3 style="color:#fff;font-size:1.5rem;margin:14px 0 16px" data-i18n="dna_title">Pusat riset interdisipliner ekonomi–iklim–teknologi</h3>
+          <p style="color:#cbdae5;margin-bottom:18px" data-i18n="dna_body">INCEPTA memposisikan diri sebagai ruang kolaborasi peneliti muda dan profesional kebijakan untuk membangun masa depan ekonomi hijau dan cerdas di Indonesia.</p>
+          <div style="display:grid;gap:14px">
+            <div style="display:flex;gap:12px;align-items:center"><span style="width:34px;height:34px;border-radius:9px;background:rgba(23,163,148,.2);display:grid;place-items:center">📊</span><span style="color:#e3edf3;font-weight:500" data-i18n="dna_1">Analisis ekonomi kuantitatif</span></div>
+            <div style="display:flex;gap:12px;align-items:center"><span style="width:34px;height:34px;border-radius:9px;background:rgba(23,163,148,.2);display:grid;place-items:center">🤖</span><span style="color:#e3edf3;font-weight:500" data-i18n="dna_2">Pemodelan AI &amp; simulasi kebijakan</span></div>
+            <div style="display:flex;gap:12px;align-items:center"><span style="width:34px;height:34px;border-radius:9px;background:rgba(23,163,148,.2);display:grid;place-items:center">🌱</span><span style="color:#e3edf3;font-weight:500" data-i18n="dna_3">Kebijakan pembangunan berkelanjutan</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION & MISSION -->
+<section class="section vm" id="visi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="vm_eyebrow">Arah Strategis</span>
+      <h2 data-i18n="vm_title">Visi &amp; Misi</h2>
+    </div>
+    <div class="vision-box reveal">
+      <div class="lbl" data-i18n="vision_lbl">Visi</div>
+      <p data-i18n="vision_txt">Menjadi lembaga riset dan konsultasi independen yang unggul di Asia Tenggara dalam bidang kebijakan ekonomi, lingkungan, dan teknologi cerdas — dengan kontribusi nyata terhadap pembangunan berkelanjutan dan tata kelola berbasis bukti (evidence-based policymaking).</p>
+    </div>
+    <div class="lbl" style="font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-300);margin-bottom:20px" data-i18n="mission_lbl">Misi</div>
+    <div class="mission-grid">
+      <div class="mission-card reveal"><div class="num">01</div><p data-i18n="m1">Melakukan riset interdisipliner di bidang ekonomi, kebijakan iklim, dan kecerdasan buatan (AI) untuk mendukung pengambilan keputusan publik.</p></div>
+      <div class="mission-card reveal"><div class="num">02</div><p data-i18n="m2">Mengembangkan model analisis kebijakan berbasis data dan simulasi ekonomi–lingkungan–teknologi (CGE, AI-policy modeling, early warning systems).</p></div>
+      <div class="mission-card reveal"><div class="num">03</div><p data-i18n="m3">Menjadi pusat pengetahuan dan pelatihan kebijakan publik berbasis riset.</p></div>
+      <div class="mission-card reveal"><div class="num">04</div><p data-i18n="m4">Menjalin kemitraan strategis dengan pemerintah, akademisi, lembaga internasional, dan sektor swasta untuk mendorong kebijakan berkelanjutan.</p></div>
+      <div class="mission-card reveal"><div class="num">05</div><p data-i18n="m5">Meningkatkan kapasitas riset nasional dalam bidang transformasi ekonomi hijau dan teknologi cerdas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH CLUSTERS -->
+<section class="section" id="riset">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="res_eyebrow">Bidang &amp; Klaster Riset Utama</span>
+      <h2 data-i18n="res_title">Tiga klaster riset yang saling terhubung</h2>
+      <p data-i18n="res_sub">Riset INCEPTA mengintegrasikan ekonomi, lingkungan, dan teknologi cerdas untuk menghasilkan analisis kebijakan yang relevan dan berdampak.</p>
+    </div>
+    <div class="cluster-grid">
+      <div class="cluster c1 reveal">
+        <div class="top"><span class="ico">💹</span><span class="tag" data-i18n="clA_tag">Klaster A</span><h3 data-i18n="clA_t">Economic Policy &amp; Development Studies</h3></div>
+        <ul>
+          <li data-i18n="clA_1">Reformasi fiskal, moneter, dan pembiayaan berkelanjutan</li>
+          <li data-i18n="clA_2">Ketahanan ekonomi daerah dan digitalisasi sektor keuangan</li>
+          <li data-i18n="clA_3">Dampak kebijakan terhadap ketimpangan, UMKM, dan sektor informal</li>
+          <li data-i18n="clA_4">Analisis CGE (Computable General Equilibrium) untuk kebijakan nasional</li>
+        </ul>
+      </div>
+      <div class="cluster c2 reveal">
+        <div class="top"><span class="ico">🌍</span><span class="tag" data-i18n="clB_tag">Klaster B</span><h3 data-i18n="clB_t">Climate &amp; Environmental Economics</h3></div>
+        <ul>
+          <li data-i18n="clB_1">Ekonomi hijau (green economy) dan kebijakan emisi karbon</li>
+          <li data-i18n="clB_2">Transisi energi bersih dan kebijakan dekarbonisasi</li>
+          <li data-i18n="clB_3">Valuasi ekonomi sumber daya alam dan climate finance</li>
+          <li data-i18n="clB_4">Integrasi ESG dalam investasi publik</li>
+        </ul>
+      </div>
+      <div class="cluster c3 reveal">
+        <div class="top"><span class="ico">🧠</span><span class="tag" data-i18n="clC_tag">Klaster C</span><h3 data-i18n="clC_t">Technology &amp; Artificial Intelligence Policy</h3></div>
+        <ul>
+          <li data-i18n="clC_1">Analisis kebijakan AI untuk sektor publik</li>
+          <li data-i18n="clC_2">Machine learning untuk analisis ekonomi dan lingkungan</li>
+          <li data-i18n="clC_3">Big data governance, etika AI, dan kebijakan digital</li>
+          <li data-i18n="clC_4">AI-based policy simulation &amp; early warning systems ekonomi–iklim</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZATION -->
+<section class="section org" id="organisasi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="org_eyebrow">Struktur &amp; Tata Kelola</span>
+      <h2 data-i18n="org_title">Organisasi yang menjaga independensi &amp; mutu ilmiah</h2>
+    </div>
+
+    <div class="org-tier reveal">
+      <div class="tier-label"><span class="pill" data-i18n="org_p1">Dewan Pembina</span><h3 data-i18n="org_h1">Board of Advisors</h3></div>
+      <div class="advisor-card"><p data-i18n="org_adv">Terdiri dari akademisi senior, ekonom, dan praktisi kebijakan publik. Berfungsi memberikan arah strategis, menjaga independensi lembaga, serta memperkuat jejaring nasional dan internasional.</p></div>
+    </div>
+
+    <div class="org-tier reveal">
+      <div class="tier-label"><span class="pill" data-i18n="org_p2">Dewan Eksekutif</span><h3 data-i18n="org_h2">Executive Board</h3></div>
+      <div class="exec-grid">
+        <div class="exec-card"><div class="role" data-i18n="ex1_r">Executive Director</div><p data-i18n="ex1_d">Direktur Eksekutif — visi strategis, hubungan eksternal, dan koordinasi riset.</p></div>
+        <div class="exec-card"><div class="role" data-i18n="ex2_r">Deputy Director, Research &amp; Innovation</div><p data-i18n="ex2_d">Mengelola program riset dan supervisi ilmiah.</p></div>
+        <div class="exec-card"><div class="role" data-i18n="ex3_r">Deputy Director, Policy &amp; Consulting</div><p data-i18n="ex3_d">Kerja sama kebijakan, pelatihan, dan proyek konsultasi.</p></div>
+        <div class="exec-card"><div class="role" data-i18n="ex4_r">Head of Operations &amp; Partnerships</div><p data-i18n="ex4_d">Administrasi, keuangan, dan hubungan mitra.</p></div>
+      </div>
+    </div>
+
+    <div class="org-tier reveal">
+      <div class="tier-label"><span class="pill" data-i18n="org_p3">Divisi Teknis</span><h3 data-i18n="org_h3">Technical Divisions</h3></div>
+      <table class="div-table">
+        <thead><tr><th data-i18n="dt_c1">Divisi</th><th data-i18n="dt_c2">Fokus Utama</th><th data-i18n="dt_c3">Produk / Output</th></tr></thead>
+        <tbody>
+          <tr><td data-i18n="d1a">Research Division</td><td data-i18n="d1b">Kajian akademik dan analisis kebijakan berbasis data</td><td data-i18n="d1c">Policy paper, working paper, indeks ekonomi–AI–lingkungan</td></tr>
+          <tr><td data-i18n="d2a">Policy &amp; Advocacy Division</td><td data-i18n="d2b">Diseminasi hasil riset dan advokasi kebijakan publik</td><td data-i18n="d2c">Policy brief, seminar, konsultasi pemerintah</td></tr>
+          <tr><td data-i18n="d3a">Innovation &amp; Data Analytics Division</td><td data-i18n="d3b">Pengembangan model analisis, simulasi AI, dan visualisasi data</td><td data-i18n="d3c">Dashboard interaktif, sistem EWS, data-driven policy tools</td></tr>
+          <tr><td data-i18n="d4a">Training &amp; Capacity Building Division</td><td data-i18n="d4b">Pendidikan dan pelatihan berbasis riset</td><td data-i18n="d4c">Workshop, bootcamp, fellowship riset</td></tr>
+          <tr><td data-i18n="d5a">Administrative &amp; Funding Division</td><td data-i18n="d5b">Pengelolaan keuangan, proyek, dan hibah</td><td data-i18n="d5c">Proposal hibah, laporan keuangan, kontrak kerja sama</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="layanan">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="svc_eyebrow">Produk &amp; Layanan Utama</span>
+      <h2 data-i18n="svc_title">Dari riset ke rekomendasi yang dapat ditindaklanjuti</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><span class="ic">📄</span><h3 data-i18n="s1_t">Policy Paper &amp; Briefs</h3><p data-i18n="s1_d">Kajian kebijakan ekonomi, iklim, dan AI untuk lembaga publik dan swasta.</p><span class="aud" data-i18n="s1_a">Pemerintah pusat/daerah · OJK · BI · Bappenas</span></div>
+      <div class="svc reveal"><span class="ic">📐</span><h3 data-i18n="s2_t">Applied Research &amp; Modeling</h3><p data-i18n="s2_d">Simulasi kebijakan berbasis model CGE, EWS, dan AI policy model.</p><span class="aud" data-i18n="s2_a">Lembaga riset · Donor · Universitas</span></div>
+      <div class="svc reveal"><span class="ic">📊</span><h3 data-i18n="s3_t">Data Analytics &amp; Visualization</h3><p data-i18n="s3_d">Pengembangan dashboard kebijakan berbasis data terbuka.</p><span class="aud" data-i18n="s3_a">Pemerintah daerah · Publik</span></div>
+      <div class="svc reveal"><span class="ic">🎓</span><h3 data-i18n="s4_t">Training &amp; Workshop</h3><p data-i18n="s4_d">Pelatihan analisis kebijakan, data ekonomi, dan AI untuk riset.</p><span class="aud" data-i18n="s4_a">Akademisi · ASN · Analis kebijakan</span></div>
+      <div class="svc reveal"><span class="ic">💼</span><h3 data-i18n="s5_t">Consulting &amp; Advisory</h3><p data-i18n="s5_d">Evaluasi kebijakan, ESG assessment, studi kelayakan ekonomi hijau.</p><span class="aud" data-i18n="s5_a">Pemerintah · BUMN · Korporasi</span></div>
+      <div class="svc reveal"><span class="ic">📈</span><h3 data-i18n="s6_t">Impact Evaluation Studies</h3><p data-i18n="s6_d">Penilaian dampak program publik berbasis data empiris.</p><span class="aud" data-i18n="s6_a">Kementerian · NGO · Donor internasional</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="section partners">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="prt_eyebrow">Jejaring &amp; Kolaborasi Strategis</span>
+      <h2 data-i18n="prt_title">Kemitraan lintas akademik, pemerintah, dan internasional</h2>
+      <p data-i18n="prt_sub">INCEPTA membangun kolaborasi strategis untuk memperkuat dampak riset dan kebijakan.</p>
+    </div>
+    <div class="partner-grid">
+      <div class="partner-card reveal"><h3><span class="dot"></span><span data-i18n="pa_t">Mitra Akademik</span></h3><div class="chips"><span class="chip">Universitas Indonesia</span><span class="chip">UGM</span><span class="chip">ITB</span><span class="chip">IPB</span><span class="chip">USU</span><span class="chip">LPEM FEB UI</span></div></div>
+      <div class="partner-card reveal"><h3><span class="dot"></span><span data-i18n="pb_t">Pemerintah &amp; Regulator</span></h3><div class="chips"><span class="chip">Kemenkeu</span><span class="chip">Bappenas</span><span class="chip">Kemenko Perekonomian</span><span class="chip">OJK</span><span class="chip">Bank Indonesia</span><span class="chip">KLHK</span></div></div>
+      <div class="partner-card reveal"><h3><span class="dot"></span><span data-i18n="pc_t">Mitra Internasional</span></h3><div class="chips"><span class="chip">World Bank</span><span class="chip">ADB</span><span class="chip">UNDP</span><span class="chip">GIZ</span><span class="chip">AFD</span><span class="chip">JICA</span><span class="chip">OECD</span></div></div>
+      <div class="partner-card reveal"><h3><span class="dot"></span><span data-i18n="pd_t">Swasta &amp; Startup</span></h3><div class="chips"><span class="chip">Startup AI</span><span class="chip">Perusahaan ESG</span><span class="chip">Sustainability reporting</span><span class="chip">Data innovation</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDING -->
+<section class="section" id="pendanaan">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="fnd_eyebrow">Model Pendanaan &amp; Keberlanjutan</span>
+      <h2 data-i18n="fnd_title">Pendanaan yang terdiversifikasi dan berkelanjutan</h2>
+    </div>
+    <div class="fund-grid">
+      <div class="fund-card reveal"><div class="n">01</div><h4 data-i18n="fn1_t">Research Grants</h4><p data-i18n="fn1_d">Hibah penelitian dari lembaga nasional dan internasional.</p></div>
+      <div class="fund-card reveal"><div class="n">02</div><h4 data-i18n="fn2_t">Consulting Projects</h4><p data-i18n="fn2_d">Kerja sama dengan pemerintah dan sektor swasta.</p></div>
+      <div class="fund-card reveal"><div class="n">03</div><h4 data-i18n="fn3_t">Corporate Partnership</h4><p data-i18n="fn3_d">Pendanaan riset bersama melalui CSR atau ESG fund.</p></div>
+      <div class="fund-card reveal"><div class="n">04</div><h4 data-i18n="fn4_t">Training &amp; Capacity Building</h4><p data-i18n="fn4_d">Pelatihan berbayar dan program sertifikasi kebijakan.</p></div>
+      <div class="fund-card reveal"><div class="n">05</div><h4 data-i18n="fn5_t">Data Product Licensing</h4><p data-i18n="fn5_d">Publikasi data visualisasi premium untuk institusi.</p></div>
+    </div>
+    <div class="sustain reveal">
+      <h3 data-i18n="sus_t">Strategi Keberlanjutan</h3>
+      <ul>
+        <li data-i18n="sus_1">Diversifikasi pendanaan agar tidak bergantung pada satu sumber.</li>
+        <li data-i18n="sus_2">Pembentukan Endowment Fund INCEPTA dalam jangka menengah (5 tahun).</li>
+        <li data-i18n="sus_3">Penerapan fee-based consulting dan public-private research partnership (PPRP).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section roadmap" id="roadmap">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="rm_eyebrow">Roadmap 5 Tahun</span>
+      <h2 data-i18n="rm_title">Peta jalan pengembangan 2025–2029</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal"><div class="yr">2025</div><div class="card"><h4 data-i18n="rm25_t">Pendirian, branding, dan riset awal berbasis data sekunder</h4><p data-i18n="rm25_d">Membangun fondasi legal dan identitas lembaga.</p><span class="target" data-i18n="rm25_x">Target: Legalitas · Website resmi · 3 publikasi policy brief</span></div></div>
+      <div class="tl-item reveal"><div class="yr">2026</div><div class="card"><h4 data-i18n="rm26_t">Penguatan kapasitas riset dan kolaborasi universitas</h4><p data-i18n="rm26_d">Memperluas tim peneliti dan kemitraan akademik.</p><span class="target" data-i18n="rm26_x">Target: 5 peneliti aktif · 1 hibah nasional · 1 riset daerah</span></div></div>
+      <div class="tl-item reveal"><div class="yr">2027</div><div class="card"><h4 data-i18n="rm27_t">Ekspansi layanan konsultasi dan proyek pemerintah</h4><p data-i18n="rm27_d">Memasuki proyek kebijakan skala nasional.</p><span class="target" data-i18n="rm27_x">Target: Proyek OJK/BI/Bappenas · Pelatihan kebijakan</span></div></div>
+      <div class="tl-item reveal"><div class="yr">2028</div><div class="card"><h4 data-i18n="rm28_t">Internasionalisasi riset dan kemitraan donor</h4><p data-i18n="rm28_d">Menjangkau kolaborasi dan publikasi global.</p><span class="target" data-i18n="rm28_x">Target: Kolaborasi ADB/UNDP · 2 publikasi internasional</span></div></div>
+      <div class="tl-item reveal"><div class="yr">2029</div><div class="card"><h4 data-i18n="rm29_t">Kemandirian finansial dan pengakuan nasional</h4><p data-i18n="rm29_d">Memantapkan posisi sebagai think tank unggulan.</p><span class="target" data-i18n="rm29_x">Target: INCEPTA diakui sebagai policy think tank unggulan nasional</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI -->
+<section class="section" id="kpi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="kpi_eyebrow">Indikator Keberhasilan</span>
+      <h2 data-i18n="kpi_title">Key Performance Indicators</h2>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi reveal"><div class="ic">🏅</div><h4 data-i18n="k1_t">Reputasi Akademik</h4><p data-i18n="k1_d">Jumlah publikasi ilmiah dan policy brief; indeks sitasi.</p></div>
+      <div class="kpi reveal"><div class="ic">⚖️</div><h4 data-i18n="k2_t">Dampak Kebijakan</h4><p data-i18n="k2_d">Rekomendasi INCEPTA diadopsi dalam kebijakan publik.</p></div>
+      <div class="kpi reveal"><div class="ic">🤝</div><h4 data-i18n="k3_t">Kolaborasi &amp; Mitra</h4><p data-i18n="k3_d">Jumlah MoU aktif dan proyek lintas lembaga.</p></div>
+      <div class="kpi reveal"><div class="ic">💰</div><h4 data-i18n="k4_t">Kemandirian Keuangan</h4><p data-i18n="k4_d">Rasio pendapatan proyek vs hibah minimal 60%.</p></div>
+      <div class="kpi reveal"><div class="ic">👥</div><h4 data-i18n="k5_t">Kapasitas SDM</h4><p data-i18n="k5_d">Jumlah peneliti aktif, pelatihan internal, dan sertifikasi.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="section pub" id="publikasi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="pub_eyebrow">Publikasi &amp; Wawasan</span>
+      <h2 data-i18n="pub_title">INCEPTA Policy Briefs, Working Papers &amp; Data Insights</h2>
+      <p data-i18n="pub_sub">Kanal publikasi resmi INCEPTA — berbasis data, visual, dan bilingual. Contoh entri di bawah adalah placeholder yang dapat Anda ganti dengan publikasi nyata.</p>
+    </div>
+    <div class="pub-filter reveal">
+      <button class="active" data-filter="all" data-i18n="pf_all">Semua</button>
+      <button data-filter="t-brief" data-i18n="pf_brief">Policy Brief</button>
+      <button data-filter="t-paper" data-i18n="pf_paper">Working Paper</button>
+      <button data-filter="t-data" data-i18n="pf_data">Data Insight</button>
+    </div>
+    <div class="pub-grid">
+      <article class="pub-card t-brief reveal" data-type="t-brief">
+        <div class="band"></div>
+        <div class="body">
+          <div class="meta"><span class="pub-type" data-i18n="pt_brief">Policy Brief</span><span class="date">2025</span></div>
+          <h3 data-i18n="pub1_t">Arah Reformasi Fiskal untuk Pembiayaan Berkelanjutan</h3>
+          <p data-i18n="pub1_d">Ringkasan rekomendasi kebijakan fiskal yang mendukung transisi ekonomi hijau di tingkat nasional dan daerah.</p>
+          <span class="read" data-i18n="pub_read">Baca ringkasan →</span>
+        </div>
+      </article>
+      <article class="pub-card t-paper reveal" data-type="t-paper">
+        <div class="band"></div>
+        <div class="body">
+          <div class="meta"><span class="pub-type" data-i18n="pt_paper">Working Paper</span><span class="date">2025</span></div>
+          <h3 data-i18n="pub2_t">Pemodelan CGE untuk Kebijakan Dekarbonisasi Indonesia</h3>
+          <p data-i18n="pub2_d">Kertas kerja yang mensimulasikan dampak kebijakan emisi karbon terhadap pertumbuhan dan ketimpangan.</p>
+          <span class="read" data-i18n="pub_read">Baca ringkasan →</span>
+        </div>
+      </article>
+      <article class="pub-card t-data reveal" data-type="t-data">
+        <div class="band"></div>
+        <div class="body">
+          <div class="meta"><span class="pub-type" data-i18n="pt_data">Data Insight</span><span class="date">2025</span></div>
+          <h3 data-i18n="pub3_t">Dashboard Early Warning System Ekonomi–Iklim</h3>
+          <p data-i18n="pub3_d">Visualisasi interaktif indikator risiko ekonomi dan lingkungan berbasis data terbuka.</p>
+          <span class="read" data-i18n="pub_read">Baca ringkasan →</span>
+        </div>
+      </article>
+      <article class="pub-card t-brief reveal" data-type="t-brief">
+        <div class="band"></div>
+        <div class="body">
+          <div class="meta"><span class="pub-type" data-i18n="pt_brief">Policy Brief</span><span class="date">2025</span></div>
+          <h3 data-i18n="pub4_t">Integrasi ESG dalam Investasi Publik Daerah</h3>
+          <p data-i18n="pub4_d">Rekomendasi praktis penerapan prinsip ESG pada belanja dan investasi pemerintah daerah.</p>
+          <span class="read" data-i18n="pub_read">Baca ringkasan →</span>
+        </div>
+      </article>
+      <article class="pub-card t-paper reveal" data-type="t-paper">
+        <div class="band"></div>
+        <div class="body">
+          <div class="meta"><span class="pub-type" data-i18n="pt_paper">Working Paper</span><span class="date">2025</span></div>
+          <h3 data-i18n="pub5_t">Tata Kelola Big Data &amp; Etika AI di Sektor Publik</h3>
+          <p data-i18n="pub5_d">Analisis kerangka kebijakan pemanfaatan AI yang bertanggung jawab untuk layanan publik.</p>
+          <span class="read" data-i18n="pub_read">Baca ringkasan →</span>
+        </div>
+      </article>
+      <article class="pub-card t-data reveal" data-type="t-data">
+        <div class="band"></div>
+        <div class="body">
+          <div class="meta"><span class="pub-type" data-i18n="pt_data">Data Insight</span><span class="date">2025</span></div>
+          <h3 data-i18n="pub6_t">Indeks Kesiapan Ekonomi Hijau Daerah</h3>
+          <p data-i18n="pub6_d">Peringkat dan visualisasi kesiapan provinsi menuju transformasi ekonomi hijau.</p>
+          <span class="read" data-i18n="pub_read">Baca ringkasan →</span>
+        </div>
+      </article>
+    </div>
+    <p class="pub-note reveal" data-i18n="pub_note">Catatan: entri di atas adalah contoh. Ganti judul, tanggal, dan tautan dengan publikasi resmi INCEPTA saat sudah tersedia.</p>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="section" id="hubungi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="cf_eyebrow">Hubungi Kami</span>
+      <h2 data-i18n="cf_title">Sampaikan kebutuhan riset atau kolaborasi Anda</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3 data-i18n="cf_h">Mari terhubung</h3>
+        <p data-i18n="cf_p">Kami terbuka untuk riset bersama, konsultasi kebijakan, pelatihan, dan kemitraan strategis dengan pemerintah, akademisi, lembaga internasional, dan sektor swasta.</p>
+        <div class="contact-line"><span class="ic">✉️</span><div><h4 data-i18n="cf_email">Email</h4><p>info@incepta.or.id</p></div></div>
+        <div class="contact-line"><span class="ic">🌐</span><div><h4 data-i18n="cf_web">Website</h4><p>www.incepta.or.id</p></div></div>
+        <div class="contact-line"><span class="ic">📍</span><div><h4 data-i18n="cf_loc">Kedudukan</h4><p data-i18n="cf_loc_v">Jakarta / Medan — dengan jejaring riset daerah</p></div></div>
+      </div>
+      <form class="contact-form reveal" id="contactForm" method="POST" action="https://formspree.io/f/your-form-id">
+        <div class="frow">
+          <div class="field"><label for="cf_name" data-i18n="cf_name">Nama</label><input id="cf_name" name="name" type="text" required></div>
+          <div class="field"><label for="cf_org" data-i18n="cf_org">Institusi</label><input id="cf_org" name="organization" type="text"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label for="cf_mail" data-i18n="cf_mail">Email</label><input id="cf_mail" name="email" type="email" required></div>
+          <div class="field"><label for="cf_topic" data-i18n="cf_topic">Topik</label>
+            <select id="cf_topic" name="topic">
+              <option data-i18n="cf_o1">Riset &amp; Kolaborasi</option>
+              <option data-i18n="cf_o2">Konsultasi Kebijakan</option>
+              <option data-i18n="cf_o3">Pelatihan &amp; Workshop</option>
+              <option data-i18n="cf_o4">Kemitraan / Pendanaan</option>
+              <option data-i18n="cf_o5">Lainnya</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="cf_msg" data-i18n="cf_msg">Pesan</label><textarea id="cf_msg" name="message" required></textarea></div>
+        <button type="submit" class="btn btn-primary" data-i18n="cf_send">Kirim Pesan →</button>
+        <p class="form-note" data-i18n="cf_note">Form ini perlu dihubungkan ke layanan pengiriman (mis. Formspree/Netlify Forms) atau backend agar pesan benar-benar terkirim. Lihat catatan di bawah.</p>
+        <p class="form-status" id="formStatus"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section class="section" id="kontak" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <span class="eyebrow" style="color:#d7f2ec" data-i18n="cta_eyebrow">Branding &amp; Kolaborasi</span>
+      <h2 data-i18n="cta_title">Mari membangun kebijakan berbasis bukti bersama</h2>
+      <p data-i18n="cta_sub">Terbuka untuk kolaborasi riset, konsultasi kebijakan, dan kemitraan strategis. Publikasi kami: INCEPTA Policy Briefs, Working Paper Series, dan Data Insights.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="mailto:info@incepta.or.id" class="btn btn-primary" style="background:#fff;color:var(--navy-800)" data-i18n="cta_b1">Hubungi Kami</a>
+        <a href="https://www.incepta.or.id" class="btn btn-ghost" data-i18n="cta_b2">www.incepta.or.id</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand"><span class="mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><rect x="3" y="14" width="3.4" height="6" rx="1.4" fill="#ffffff"/><rect x="8.6" y="10" width="3.4" height="10" rx="1.4" fill="#ffffff"/><rect x="14.2" y="6" width="3.4" height="14" rx="1.4" fill="#bff0e6"/><path d="M19.5 3.2c1.9.4 2.6 2 2.1 3.9-1.9-.4-2.6-2-2.1-3.9Z" fill="#4cc2b3"/></svg></span><span>INCEPTA<small>Economic · Climate · Policy Technology</small></span></div>
+        <p class="desc" data-i18n="foot_desc">Institute for Economic, Climate, and Policy Technology Analysis. Citra lembaga: modern, ilmiah, independen, kolaboratif.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot_nav">Navigasi</h5>
+        <a href="#tentang" data-i18n="nav_about">Tentang</a>
+        <a href="#visi" data-i18n="nav_vision">Visi &amp; Misi</a>
+        <a href="#riset" data-i18n="nav_research">Riset</a>
+        <a href="#organisasi" data-i18n="nav_org">Organisasi</a>
+        <a href="#roadmap" data-i18n="nav_roadmap">Roadmap</a>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot_pub">Publikasi</h5>
+        <a href="#">INCEPTA Policy Briefs</a>
+        <a href="#">Working Paper Series</a>
+        <a href="#">Data Insights</a>
+        <a href="#layanan" data-i18n="nav_services">Layanan</a>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot_connect">Terhubung</h5>
+        <a href="#">LinkedIn</a>
+        <a href="#">Medium</a>
+        <a href="#">ResearchGate</a>
+        <a href="mailto:info@incepta.or.id">info@incepta.or.id</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025–2026 INCEPTA. <span data-i18n="foot_rights">Lembaga riset independen.</span></span>
+      <span data-i18n="foot_style">Berbasis data · Visual · Bilingual (Indonesia–Inggris)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===== Language toggle (ID/EN) ===== */
+const i18n = {
+  en:{
+    brand_sub:"Economic · Climate · Policy Technology",
+    nav_about:"About",nav_vision:"Vision & Mission",nav_research:"Research",nav_org:"Organization",nav_services:"Services",nav_pub:"Publications",nav_roadmap:"Roadmap",nav_contact:"Contact",nav_cta:"Collaborate",
+    hero_eyebrow:"Independent Policy Research Institute",
+    hero_title:'Bridging scientific research and <span class="accent">evidence-based public policy</span>.',
+    hero_lead:"INCEPTA — Institute for Economic, Climate, and Policy Technology Analysis — is an independent research and consulting institute in economic, climate, and smart-technology policy for sustainable development across Indonesia and Southeast Asia.",
+    hero_cta1:"Explore Research Clusters →",hero_cta2:"About INCEPTA",
+    stat1:"Interdisciplinary research clusters",stat2:"Technical divisions",stat3:"Strategic roadmap",stat4:"Bilingual publications",
+    about_eyebrow:"Institutional Identity",about_title:"The beginning of innovation and new policy thinking",
+    etym:'Etymologically, <strong>Incepta</strong> derives from the Latin <em>“incipere”</em> — to begin something great — symbolizing the start of innovation and new policy thinking.',
+    f1_l:"Legal Form",f1_v:"Initially an Independent Research Initiative / Think Tank Foundation, evolving into a formal research institute (non-profit foundation) registered under Kemenkumham.",
+    f2_l:"Location",f2_v:"Based in Jakarta/Medan with a research network across universities and regional institutions: North Sumatra, Bandung, and Yogyakarta.",
+    f3_l:"Positioning",f3_v:"A bridge between scientific research and public policy — combining quantitative economic analysis, AI modeling, and sustainable policy.",
+    dna_eyebrow:"Institutional Summary",dna_title:"An interdisciplinary economics–climate–technology research center",
+    dna_body:"INCEPTA positions itself as a collaboration space for young researchers and policy professionals to build a green and intelligent economic future for Indonesia.",
+    dna_1:"Quantitative economic analysis",dna_2:"AI modeling & policy simulation",dna_3:"Sustainable development policy",
+    vm_eyebrow:"Strategic Direction",vm_title:"Vision & Mission",vision_lbl:"Vision",
+    vision_txt:"To become a leading independent research and consulting institute in Southeast Asia in economic, environmental, and smart-technology policy — with real contributions to sustainable development and evidence-based policymaking.",
+    mission_lbl:"Mission",
+    m1:"Conduct interdisciplinary research in economics, climate policy, and artificial intelligence (AI) to support public decision-making.",
+    m2:"Develop data-driven policy analysis models and economic–environmental–technology simulations (CGE, AI-policy modeling, early warning systems).",
+    m3:"Serve as a research-based knowledge and training center for public policy.",
+    m4:"Build strategic partnerships with government, academia, international institutions, and the private sector to advance sustainable policy.",
+    m5:"Strengthen national research capacity in green economy transformation and smart technology.",
+    res_eyebrow:"Core Research Clusters",res_title:"Three interconnected research clusters",
+    res_sub:"INCEPTA's research integrates economics, environment, and smart technology to produce relevant, high-impact policy analysis.",
+    clA_tag:"Cluster A",clA_t:"Economic Policy & Development Studies",
+    clA_1:"Fiscal, monetary, and sustainable financing reform",clA_2:"Regional economic resilience and financial-sector digitalization",clA_3:"Policy impact on inequality, MSMEs, and the informal sector",clA_4:"CGE (Computable General Equilibrium) analysis for national policy",
+    clB_tag:"Cluster B",clB_t:"Climate & Environmental Economics",
+    clB_1:"Green economy and carbon emission policy",clB_2:"Clean energy transition and decarbonization policy",clB_3:"Economic valuation of natural resources and climate finance",clB_4:"ESG integration in public investment",
+    clC_tag:"Cluster C",clC_t:"Technology & Artificial Intelligence Policy",
+    clC_1:"AI policy analysis for the public sector",clC_2:"Machine learning for economic and environmental analysis",clC_3:"Big data governance, AI ethics, and digital policy",clC_4:"AI-based policy simulation & early warning systems for economy–climate",
+    org_eyebrow:"Structure & Governance",org_title:"An organization safeguarding independence & scientific quality",
+    org_p1:"Board of Advisors",org_h1:"Board of Advisors",
+    org_adv:"Composed of senior academics, economists, and public-policy practitioners. Provides strategic direction, safeguards institutional independence, and strengthens national and international networks.",
+    org_p2:"Executive Board",org_h2:"Executive Board",
+    ex1_r:"Executive Director",ex1_d:"Strategic vision, external relations, and research coordination.",
+    ex2_r:"Deputy Director, Research & Innovation",ex2_d:"Manages research programs and scientific supervision.",
+    ex3_r:"Deputy Director, Policy & Consulting",ex3_d:"Policy cooperation, training, and consulting projects.",
+    ex4_r:"Head of Operations & Partnerships",ex4_d:"Administration, finance, and partner relations.",
+    org_p3:"Technical Divisions",org_h3:"Technical Divisions",
+    dt_c1:"Division",dt_c2:"Main Focus",dt_c3:"Products / Output",
+    d1a:"Research Division",d1b:"Academic studies and data-driven policy analysis",d1c:"Policy paper, working paper, economy–AI–environment indices",
+    d2a:"Policy & Advocacy Division",d2b:"Research dissemination and public-policy advocacy",d2c:"Policy brief, seminars, government consultation",
+    d3a:"Innovation & Data Analytics Division",d3b:"Analytical model development, AI simulation, and data visualization",d3c:"Interactive dashboards, EWS, data-driven policy tools",
+    d4a:"Training & Capacity Building Division",d4b:"Research-based education and training",d4c:"Workshops, bootcamps, research fellowships",
+    d5a:"Administrative & Funding Division",d5b:"Finance, project, and grant management",d5c:"Grant proposals, financial reports, cooperation contracts",
+    svc_eyebrow:"Core Products & Services",svc_title:"From research to actionable recommendations",
+    s1_t:"Policy Paper & Briefs",s1_d:"Economic, climate, and AI policy studies for public and private institutions.",s1_a:"Central/regional govt · OJK · BI · Bappenas",
+    s2_t:"Applied Research & Modeling",s2_d:"Policy simulation based on CGE, EWS, and AI policy models.",s2_a:"Research bodies · Donors · Universities",
+    s3_t:"Data Analytics & Visualization",s3_d:"Open-data-based policy dashboard development.",s3_a:"Regional government · Public",
+    s4_t:"Training & Workshop",s4_d:"Training in policy analysis, economic data, and AI for research.",s4_a:"Academics · Civil servants · Policy analysts",
+    s5_t:"Consulting & Advisory",s5_d:"Policy evaluation, ESG assessment, green-economy feasibility studies.",s5_a:"Government · SOEs · Corporations",
+    s6_t:"Impact Evaluation Studies",s6_d:"Empirical, data-based impact assessment of public programs.",s6_a:"Ministries · NGOs · International donors",
+    prt_eyebrow:"Strategic Networks & Collaboration",prt_title:"Partnerships across academia, government, and international bodies",
+    prt_sub:"INCEPTA builds strategic collaborations to strengthen research and policy impact.",
+    pa_t:"Academic Partners",pb_t:"Government & Regulators",pc_t:"International Partners",pd_t:"Private & Startups",
+    fnd_eyebrow:"Funding & Sustainability Model",fnd_title:"Diversified and sustainable funding",
+    fn1_t:"Research Grants",fn1_d:"Research grants from national and international bodies.",
+    fn2_t:"Consulting Projects",fn2_d:"Cooperation with government and the private sector.",
+    fn3_t:"Corporate Partnership",fn3_d:"Joint research funding via CSR or ESG funds.",
+    fn4_t:"Training & Capacity Building",fn4_d:"Paid training and policy certification programs.",
+    fn5_t:"Data Product Licensing",fn5_d:"Premium data-visualization publications for institutions.",
+    sus_t:"Sustainability Strategy",
+    sus_1:"Diversify funding to avoid reliance on a single source.",sus_2:"Establish an INCEPTA Endowment Fund in the medium term (5 years).",sus_3:"Apply fee-based consulting and public-private research partnership (PPRP).",
+    rm_eyebrow:"5-Year Roadmap",rm_title:"Development roadmap 2025–2029",
+    rm25_t:"Establishment, branding, and initial secondary-data research",rm25_d:"Building legal foundation and institutional identity.",rm25_x:"Target: Legal status · Official website · 3 policy briefs",
+    rm26_t:"Strengthening research capacity and university collaboration",rm26_d:"Expanding the research team and academic partnerships.",rm26_x:"Target: 5 active researchers · 1 national grant · 1 regional study",
+    rm27_t:"Expanding consulting services and government projects",rm27_d:"Entering national-scale policy projects.",rm27_x:"Target: OJK/BI/Bappenas projects · Policy training",
+    rm28_t:"Research internationalization and donor partnerships",rm28_d:"Reaching global collaboration and publication.",rm28_x:"Target: ADB/UNDP collaboration · 2 international publications",
+    rm29_t:"Financial independence and national recognition",rm29_d:"Cementing its position as a leading think tank.",rm29_x:"Target: Recognized as a leading national policy think tank",
+    kpi_eyebrow:"Indicators of Success",kpi_title:"Key Performance Indicators",
+    k1_t:"Academic Reputation",k1_d:"Number of scientific publications and policy briefs; citation index.",
+    k2_t:"Policy Impact",k2_d:"INCEPTA recommendations adopted in public policy.",
+    k3_t:"Collaboration & Partners",k3_d:"Number of active MoUs and cross-institutional projects.",
+    k4_t:"Financial Independence",k4_d:"Project-to-grant revenue ratio of at least 60%.",
+    k5_t:"Human Capacity",k5_d:"Number of active researchers, internal training, and certification.",
+    pub_eyebrow:"Publications & Insights",pub_title:"INCEPTA Policy Briefs, Working Papers & Data Insights",
+    pub_sub:"INCEPTA's official publication channels — data-driven, visual, and bilingual. The entries below are placeholders you can replace with real publications.",
+    pf_all:"All",pf_brief:"Policy Brief",pf_paper:"Working Paper",pf_data:"Data Insight",
+    pt_brief:"Policy Brief",pt_paper:"Working Paper",pt_data:"Data Insight",pub_read:"Read summary →",
+    pub1_t:"Fiscal Reform Directions for Sustainable Financing",pub1_d:"A summary of fiscal policy recommendations supporting the green economy transition at national and regional levels.",
+    pub2_t:"CGE Modeling for Indonesia's Decarbonization Policy",pub2_d:"A working paper simulating the impact of carbon emission policy on growth and inequality.",
+    pub3_t:"Economy–Climate Early Warning System Dashboard",pub3_d:"An interactive visualization of economic and environmental risk indicators from open data.",
+    pub4_t:"ESG Integration in Regional Public Investment",pub4_d:"Practical recommendations for applying ESG principles to regional government spending and investment.",
+    pub5_t:"Big Data Governance & AI Ethics in the Public Sector",pub5_d:"An analysis of policy frameworks for responsible AI use in public services.",
+    pub6_t:"Regional Green Economy Readiness Index",pub6_d:"Ranking and visualization of provincial readiness for green economy transformation.",
+    pub_note:"Note: the entries above are samples. Replace titles, dates, and links with official INCEPTA publications once available.",
+    cf_eyebrow:"Contact Us",cf_title:"Tell us about your research or collaboration needs",
+    cf_h:"Let's connect",cf_p:"We are open to joint research, policy consulting, training, and strategic partnerships with government, academia, international institutions, and the private sector.",
+    cf_email:"Email",cf_web:"Website",cf_loc:"Location",cf_loc_v:"Jakarta / Medan — with a regional research network",
+    cf_name:"Name",cf_org:"Organization",cf_mail:"Email",cf_topic:"Topic",
+    cf_o1:"Research & Collaboration",cf_o2:"Policy Consulting",cf_o3:"Training & Workshop",cf_o4:"Partnership / Funding",cf_o5:"Other",
+    cf_msg:"Message",cf_send:"Send Message →",
+    cf_note:"This form needs to be connected to a delivery service (e.g. Formspree/Netlify Forms) or a backend for messages to actually be sent. See the note below.",
+    cta_eyebrow:"Branding & Collaboration",cta_title:"Let's build evidence-based policy together",
+    cta_sub:"Open to research collaboration, policy consulting, and strategic partnerships. Our publications: INCEPTA Policy Briefs, Working Paper Series, and Data Insights.",
+    cta_b1:"Contact Us",cta_b2:"www.incepta.or.id",
+    foot_desc:"Institute for Economic, Climate, and Policy Technology Analysis. Institutional image: modern, scientific, independent, collaborative.",
+    foot_nav:"Navigation",foot_pub:"Publications",foot_connect:"Connect",
+    foot_rights:"Independent research institute.",foot_style:"Data-driven · Visual · Bilingual (Indonesian–English)"
+  }
+};
+
+let currentLang="id";
+const originalID={};
+document.querySelectorAll("[data-i18n]").forEach(el=>{originalID[el.getAttribute("data-i18n")]=el.innerHTML;});
+
+function setLang(lang){
+  currentLang=lang;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(lang==="en" && i18n.en[key]!==undefined){el.innerHTML=i18n.en[key];}
+    else if(lang==="id" && originalID[key]!==undefined){el.innerHTML=originalID[key];}
+  });
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+
+/* ===== Mobile menu ===== */
+const burger=document.getElementById("burger"),navLinks=document.getElementById("navLinks");
+burger.addEventListener("click",()=>navLinks.classList.toggle("open"));
+navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>navLinks.classList.remove("open")));
+
+/* ===== Scroll reveal ===== */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});
+},{threshold:0.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* ===== Publications filter ===== */
+const pubBtns=document.querySelectorAll(".pub-filter button");
+const pubCards=document.querySelectorAll(".pub-card");
+pubBtns.forEach(btn=>btn.addEventListener("click",()=>{
+  pubBtns.forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const f=btn.dataset.filter;
+  pubCards.forEach(c=>{
+    const show=(f==="all"||c.dataset.type===f);
+    c.style.display=show?"":"none";
+  });
+}));
+
+/* ===== Contact form ===== */
+const form=document.getElementById("contactForm");
+const status=document.getElementById("formStatus");
+form.addEventListener("submit",async(e)=>{
+  const action=form.getAttribute("action")||"";
+  const notConfigured=action.includes("your-form-id");
+  const msgOk=currentLang==="en"?"Thank you — your message has been sent.":"Terima kasih — pesan Anda telah terkirim.";
+  const msgErr=currentLang==="en"?"Could not send. Opening your email app instead…":"Gagal mengirim. Membuka aplikasi email Anda…";
+  // Fallback to mailto if endpoint not configured
+  if(notConfigured){
+    e.preventDefault();
+    const n=encodeURIComponent(form.name.value),m=encodeURIComponent(form.email.value),
+          o=encodeURIComponent(form.organization.value),t=encodeURIComponent(form.topic.value),
+          body=encodeURIComponent(form.message.value);
+    const subject=encodeURIComponent("["+t+"] "+form.name.value+" — INCEPTA");
+    window.location.href="mailto:info@incepta.or.id?subject="+subject+"&body="+
+      body+"%0D%0A%0D%0A—%0D%0A"+decodeURIComponent(n)+" ("+decodeURIComponent(o||"-")+"), "+decodeURIComponent(m);
+    status.className="form-status ok";
+    status.textContent=currentLang==="en"?"Opening your email app to send the message…":"Membuka aplikasi email Anda untuk mengirim pesan…";
+    return;
+  }
+  // If configured with a real endpoint (e.g. Formspree), submit via fetch
+  e.preventDefault();
+  try{
+    const res=await fetch(action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});
+    if(res.ok){form.reset();status.className="form-status ok";status.textContent=msgOk;}
+    else{throw new Error();}
+  }catch(_){status.className="form-status err";status.textContent=msgErr;}
+});
+</script>
+</body>
+</html>

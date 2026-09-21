@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Ganti dengan domain final Anda bila sudah ada:
+# Sitemap: https://USERNAME.github.io/incepta/sitemap.xml
